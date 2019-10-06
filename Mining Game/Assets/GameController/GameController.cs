@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    //at first i thought i had to display UI text for the score...whoops
-    //(i might end up doing that if i have extra time)
+    
 
     public GameObject BronzeCubePreFab;
     public GameObject SilverCubePreFab;
+    public GameObject GoldCubePrefab;
 
     int xPos;
     int yPos;
@@ -17,10 +17,12 @@ public class GameController : MonoBehaviour
     //how much ore has the player collected?
     public int bronzeScore;
     public int silverScore;
+    public int goldScore;
 
     //create vector for bronze/silver cubes
     public Vector3 bronzeCubePosition;
     public Vector3 silverCubePosition;
+    public Vector3 goldCubePosition;
 
     public float miningSpeed;
     public float mineNow;
@@ -28,19 +30,21 @@ public class GameController : MonoBehaviour
     //how much ore is there to mine?
     public int bronzeSupply;
     public int silverSupply;
+    public int goldSupply;
     // Start is called before the first frame update
     void Start()
     {
-        xPos = 0;
-        yPos = 0;
-        zPos = 0;
+       xPos = 0;
+       yPos = 0;
+       zPos = 0;
         bronzeScore = 0;
         silverScore = 0;
-        bronzeSupply = 3;
-        silverSupply = 2;
-        miningSpeed = 3;
-        print("Bronze: " + bronzeScore);
-        print("Silver: " + silverScore);
+        goldScore = 0;
+        bronzeSupply = 0;
+        silverSupply = 0;
+        goldSupply = 0;
+        miningSpeed = 1;
+     
 
     }
 
@@ -50,33 +54,42 @@ public class GameController : MonoBehaviour
         if (Time.time > mineNow) //nine an ore every miningSpeed seconds
         {
             mineNow += miningSpeed;
-            if (bronzeSupply > 0) //this might all be able to fit into a forloop and look better
-            {
-                bronzeSupply--;
-                bronzeScore++;
 
-                xPos = Random.Range(-5, 6) + 2;
-                yPos = Random.Range(-6, 6) + 2;
-               // zPos = Random.Range(-2, 6) + 2;
+            if (silverSupply == 2 && bronzeSupply == 2)
+            {
+                goldSupply++;
+               
+                xPos = Random.Range(-5, 6);
+                yPos = Random.Range(-6, 5);
+            
+                goldCubePosition = new Vector3(xPos, yPos, zPos);
+                Instantiate(GoldCubePrefab, goldCubePosition, Quaternion.identity);
+
+            }
+           else if (bronzeSupply < 4) 
+            {
+                bronzeSupply++;
+               
+
+                xPos = Random.Range(-5, 6);
+                yPos = Random.Range(-6, 5);
+  
                 bronzeCubePosition = new Vector3(xPos, yPos, zPos);
                 Instantiate(BronzeCubePreFab, bronzeCubePosition, Quaternion.identity);
-
-                print("Bronze: " + bronzeScore);
             }
 
-            else if (silverSupply > 0)
+            else if (bronzeSupply >= 4)
             {
-                silverSupply--;
-                silverScore++;
+                silverSupply++;
+                
 
-                xPos = Random.Range(-6, 6) + 2;
-                yPos = Random.Range(-6, 6) + 2;
-                // zPos = Random.Range(-2, 6) + 2;
+                xPos = Random.Range(-6, 6);
+                yPos = Random.Range(-6, 5);
+
                 silverCubePosition = new Vector3(xPos, yPos, zPos);
                 Instantiate(SilverCubePreFab, silverCubePosition, Quaternion.identity);
-
-                print("Silver: " + silverScore);
             }
+           print("Bronze: " + bronzeSupply + " .... Silver: " + silverSupply + " ... Gold: " + goldSupply);
         }
     }
            
