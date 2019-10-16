@@ -11,7 +11,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Mining part 3.unity
     guid: df54108701965e042be0ddb5152c76f1
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Mining part 4.unity
     guid: 8b6e9a34431dbe7429b828e0fbf1f5a3
+  - enabled: 1
+    path: Assets/Scenes/Mining part 5.unity
+    guid: 5ecc90917f540ec42b003c648e5783bd
   m_configObjects: {}
